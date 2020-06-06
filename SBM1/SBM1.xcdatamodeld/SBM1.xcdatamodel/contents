@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Goal" representedClassName="Goal" syncable="YES" codeGenerationType="class">
+        <attribute name="goalDone" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="goalTitle" optional="YES" attributeType="String"/>
+        <relationship name="toManyTasks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Task" inverseName="goalAssigned" inverseEntity="Task"/>
+    </entity>
+    <entity name="Task" representedClassName="Task" syncable="YES" codeGenerationType="class">
+        <attribute name="done" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="goalAssigned" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Goal" inverseName="toManyTasks" inverseEntity="Goal"/>
+    </entity>
+    <elements>
+        <element name="Goal" positionX="-63" positionY="0" width="128" height="88"/>
+        <element name="Task" positionX="-63" positionY="-18" width="128" height="88"/>
+    </elements>
 </model>

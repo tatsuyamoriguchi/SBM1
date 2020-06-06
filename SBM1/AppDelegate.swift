@@ -12,6 +12,12 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("")
+        print("*****************************")
+        print("Remote Notification Received")
+        print("")
+    }
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -36,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
+//        lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
@@ -43,11 +50,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentCloudKitContainer(name: "SBM1")
+//        let container = NSPersistentContainer(name: "SBM1")
+
+        // Get the store description
+        guard let description = container.persistentStoreDescriptions.first else {
+            fatalError("Couldn't retreve a persisten store description.")
+        }
+        
+        // Initialize the CloudKit schema
+        let id = "iCloud.com.beckos.SBM1"
+        let options = NSPersistentCloudKitContainerOptions(containerIdentifier: id)
+        description.cloudKitContainerOptions = options
+  
+        
+        
+        
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
+
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -59,6 +81,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+
+//        let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.beckos.SBM")!.appendingPathComponent("SBM1.sqlite")
+//
+//         var defaultURL: URL?
+//         if let storeDescription = container.persistentStoreDescriptions.first, let url = storeDescription.url {
+//             defaultURL = FileManager.default.fileExists(atPath: url.path) ? url : nil
+//         }
+//
+//         if defaultURL == nil {
+//             container.persistentStoreDescriptions = [NSPersistentStoreDescription(url: storeURL)]
+//         }
+//
+//         container.loadPersistentStores(completionHandler: { [unowned container] (storeDescription, error) in
+//
+//           //container.viewContext.mergePolicy = NSMergePolicyType.mergeByPropertyStoreTrumpMergePolicyType
+//             container.viewContext.mergePolicy = NSMergePolicy(merge: NSMergePolicyType.mergeByPropertyObjectTrumpMergePolicyType)
+//
+//             if let error = error as NSError? {
+//                 fatalError("Unresolved error \(error), \(error.userInfo)")
+//             }
+//
+//             if let url = defaultURL, url.absoluteString != storeURL.absoluteString {
+//                 let coordinator = container.persistentStoreCoordinator
+//                 if let oldStore = coordinator.persistentStore(for: url) {
+//                     do {
+//                         try coordinator.migratePersistentStore(oldStore, to: storeURL, options: nil, withType: NSSQLiteStoreType)
+//                     } catch {
+//                         print(error.localizedDescription)
+//                     }
+//
+//                     // delete old store
+//                     let fileCoordinator = NSFileCoordinator(filePresenter: nil)
+//                     fileCoordinator.coordinate(writingItemAt: url, options: .forDeleting, error: nil, byAccessor: { url in
+//                         do {
+//                             try FileManager.default.removeItem(at: url)
+//                         } catch {
+//                             print(error.localizedDescription)
+//                         }
+//                     })
+//                 }
+//             }
+//         })
+
         return container
     }()
 
