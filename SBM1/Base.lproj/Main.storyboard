@@ -220,6 +220,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="SBM1 Goal List" id="hwd-Py-3sU">
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="lbe-rX-I2x">
+                            <connections>
+                                <segue destination="gAx-vt-SlG" kind="show" identifier="migrateSegue" id="9Z7-6A-5xg"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="KtH-5O-Y1M">
                             <connections>
                                 <segue destination="J8p-59-Otd" kind="show" id="epG-iY-XHZ"/>
@@ -233,6 +238,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zFW-26-Inr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1286" y="-593"/>
+        </scene>
+        <!--Migrate Table View Controller-->
+        <scene sceneID="pFR-G4-E6X">
+            <objects>
+                <tableViewController id="gAx-vt-SlG" customClass="MigrateTableViewController" customModule="SBM1" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZBU-Sd-Z9g">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoalCell" id="hqZ-SR-UgD">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hqZ-SR-UgD" id="rCs-Zg-jX6">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="gAx-vt-SlG" id="QS6-wK-MPJ"/>
+                            <outlet property="delegate" destination="gAx-vt-SlG" id="eiD-fW-eyt"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="fcC-jc-peA">
+                        <barButtonItem key="rightBarButtonItem" title="Migrate" id="SAm-rJ-KXE">
+                            <connections>
+                                <action selector="migrateOnPressed:" destination="gAx-vt-SlG" id="7fw-zd-6Rt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fAn-yM-u7e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1295" y="285"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WFf-mF-mH9">

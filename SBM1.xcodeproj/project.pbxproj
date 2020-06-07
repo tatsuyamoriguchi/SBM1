@@ -16,6 +16,7 @@
 		8C752DFF2489D37800697557 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C752DFE2489D37800697557 /* CloudKit.framework */; };
 		8C752E012489E66800697557 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C752E002489E66800697557 /* MainTableViewController.swift */; };
 		8C752E03248A074D00697557 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C752E02248A074D00697557 /* AddTaskViewController.swift */; };
+		8C792243248B86A900FCD271 /* MigrateTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C792242248B86A900FCD271 /* MigrateTableViewController.swift */; };
 		8C7B42DD248AE14500CCD778 /* GoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B42DC248AE14500CCD778 /* GoalTableViewController.swift */; };
 		8C7B42DF248AE6C100CCD778 /* AddGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7B42DE248AE6C100CCD778 /* AddGoalViewController.swift */; };
 /* End PBXBuildFile section */
@@ -33,6 +34,7 @@
 		8C752DFE2489D37800697557 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8C752E002489E66800697557 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		8C752E02248A074D00697557 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		8C792242248B86A900FCD271 /* MigrateTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigrateTableViewController.swift; sourceTree = "<group>"; };
 		8C7B42DC248AE14500CCD778 /* GoalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTableViewController.swift; sourceTree = "<group>"; };
 		8C7B42DE248AE6C100CCD778 /* AddGoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 				8C752DE52489D36800697557 /* AppDelegate.swift */,
 				8C752DE72489D36800697557 /* SceneDelegate.swift */,
 				8C752DEB2489D36800697557 /* Main.storyboard */,
+				8C792242248B86A900FCD271 /* MigrateTableViewController.swift */,
 				8C7B42DE248AE6C100CCD778 /* AddGoalViewController.swift */,
 				8C7B42DC248AE14500CCD778 /* GoalTableViewController.swift */,
 				8C752DF12489D36800697557 /* Assets.xcassets */,
@@ -170,6 +173,7 @@
 				8C752DE62489D36800697557 /* AppDelegate.swift in Sources */,
 				8C752DE82489D36800697557 /* SceneDelegate.swift in Sources */,
 				8C7B42DD248AE14500CCD778 /* GoalTableViewController.swift in Sources */,
+				8C792243248B86A900FCD271 /* MigrateTableViewController.swift in Sources */,
 				8C752E03248A074D00697557 /* AddTaskViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
