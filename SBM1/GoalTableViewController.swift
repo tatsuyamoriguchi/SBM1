@@ -13,10 +13,10 @@ class GoalTableViewController: UITableViewController, NSFetchedResultsController
     
     var selectedGoal: Goal?
     
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        configureFetchedResultsController()
-//    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureFetchedResultsController()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -87,29 +87,67 @@ class GoalTableViewController: UITableViewController, NSFetchedResultsController
         }
 
         
-          private func deleteAction(goal: Goal, indexPath: IndexPath) {
-               // Pop up an alert to warn a user of deletion of data
-               let alert = UIAlertController(title: "Delete", message: "Are you sure you want to delete this?", preferredStyle: .alert)
-               let deleteAction = UIAlertAction(title: "Delete", style: .default) { (action) in
-                   
-                   // Declare ManagedObjectContext
-                   let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-                   
-                   // Delete a row from tableview
-                   let goalToDelete = self.fetchedResultsController?.object(at: indexPath)
-                   // Delete it from Core Data
-                   context.delete(goalToDelete as! NSManagedObject)
-                }
+    private func deleteAction(goal: Goal, indexPath: IndexPath) {
+        // Pop up an alert to warn a user of deletion of data
+        let alert = UIAlertController(title: "Delete", message: "Are you sure you want to delete this?", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .default) { (action) in
+            
+            // Declare ManagedObjectContext
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            // Delete a row from tableview
+            let goalToDelete = self.fetchedResultsController?.object(at: indexPath)
+            // Delete it from Core Data
+            context.delete(goalToDelete as! NSManagedObject)
+            
+            self.deleteTasksOfGoalToDelete(goalToDelete: goalToDelete as! Goal)
+            
+            
+            
+        }
         
-               let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-               
-               alert.addAction(deleteAction)
-               alert.addAction(cancelAction)
-               present(alert, animated: true)
-               
-           }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+        
+    }
+    
+    
+    func deleteTasksOfGoalToDelete(goalToDelete: Goal) {
+        
+        let taskArray = selectedGoalTasksToArray(selectedGoal: goalToDelete)
+        
+        for tasksToDelete in taskArray {
+            
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            do {
+                context.delete(tasksToDelete as NSManagedObject)
+                try context.save()
+            }catch{
+            }
+        }
+    }
+    
+    
+    func selectedGoalTasksToArray(selectedGoal: Goal) -> Array<Task> {
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Task")
+        fetchRequest.predicate = NSPredicate(format: "goalAssigned == %@", selectedGoal)
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        var objects: [Task]
+        do {
+            try objects = context.fetch(fetchRequest) as! [Task]
+            return objects
+        } catch {
+            print("Error in fetching Task data ")
+            return []
+        }
+    }
+    
         // MARK: - Table view data source
 
         override func numberOfSections(in tableView: UITableView) -> Int {

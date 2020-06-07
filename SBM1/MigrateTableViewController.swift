@@ -116,13 +116,11 @@ class MigrateTableViewController: UITableViewController, NSFetchedResultsControl
         
         migrateOneGoal(selectedGoal: selectedGoal)
         
-        if let goalCell = tableView.cellForRow(at: indexPath) {
-            goalCell.accessoryType = .checkmark
-            selectedGoal.goalTitle = "*Delete if no need: " + selectedGoal.goalTitle!
-            
-        } else { print("Couldn't grab goalCell.")}
-        
-        
+//        if let goalCell = tableView.cellForRow(at: indexPath) {
+//            goalCell.accessoryType = .checkmark
+//
+//        } else { print("Couldn't grab goalCell.")}
+
 //        // Declare ManagedObjectContext
 //        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 //        // Delete a row from tableview
@@ -138,12 +136,14 @@ class MigrateTableViewController: UITableViewController, NSFetchedResultsControl
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let newGoal = Goal(context: context)
         
-        newGoal.goalTitle = selectedGoal.goalTitle
+        newGoal.goalTitle = selectedGoal.goalTitle! + " iCloud syncing"
         newGoal.goalDone = selectedGoal.goalDone
         
         migrateTasksOfOneGoal(selectedGoal: selectedGoal, newGoal: newGoal)
         
         do {
+            // Delete it from Core Data
+            context.delete(selectedGoal as NSManagedObject)
             try context.save()
         }catch{
             print("Saving or Deleting Goal context Error: \(error.localizedDescription)")
@@ -164,6 +164,7 @@ class MigrateTableViewController: UITableViewController, NSFetchedResultsControl
             newTask.goalAssigned = newGoal //taskToMigrate.goalAssigned
             
             do {
+                context.delete(taskToMigrate as NSManagedObject)
                 try context.save()
             }catch{
             }
