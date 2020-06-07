@@ -111,18 +111,23 @@ class MigrateTableViewController: UITableViewController, NSFetchedResultsControl
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            
+        
         guard let selectedGoal = self.fetchedResultsController?.object(at: indexPath) as? Goal else { return }
+        
         migrateOneGoal(selectedGoal: selectedGoal)
-        if let goalCell = tableView.cellForRow(at: indexPath) {        goalCell.accessoryType = .checkmark
-                    
+ 
+        //if let goalCell = tableView.cellForRow(at: indexPath) {
+            //goalCell.accessoryType = .checkmark
+            
             // Declare ManagedObjectContext
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             // Delete a row from tableview
             let goalToDelete = self.fetchedResultsController?.object(at: indexPath)
             // Delete it from Core Data
             context.delete(goalToDelete as! NSManagedObject)
-        }
+            
+        //} else { print("Couldn't grab goalCell.")}
+        
     }
     
     
@@ -130,10 +135,11 @@ class MigrateTableViewController: UITableViewController, NSFetchedResultsControl
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let newGoal = Goal(context: context)
         
-        newGoal.goalTitle = selectedGoal.goalTitle! + " New one"
+        newGoal.goalTitle = selectedGoal.goalTitle
         newGoal.goalDone = selectedGoal.goalDone
         
         migrateTasksOfOneGoal(selectedGoal: selectedGoal, newGoal: newGoal)
+        
         do {
             try context.save()
         }catch{
@@ -149,7 +155,7 @@ class MigrateTableViewController: UITableViewController, NSFetchedResultsControl
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
             let newTask = Task(context: context)
 
-            newTask.title = taskToMigrate.title! + " Task title for a new goal"
+            newTask.title = taskToMigrate.title
             newTask.done = taskToMigrate.done
             newTask.goalAssigned = newGoal //taskToMigrate.goalAssigned
             
