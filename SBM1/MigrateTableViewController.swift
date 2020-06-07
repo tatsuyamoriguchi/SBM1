@@ -115,18 +115,21 @@ class MigrateTableViewController: UITableViewController, NSFetchedResultsControl
         guard let selectedGoal = self.fetchedResultsController?.object(at: indexPath) as? Goal else { return }
         
         migrateOneGoal(selectedGoal: selectedGoal)
- 
-        //if let goalCell = tableView.cellForRow(at: indexPath) {
-            //goalCell.accessoryType = .checkmark
+        
+        if let goalCell = tableView.cellForRow(at: indexPath) {
+            goalCell.accessoryType = .checkmark
+            selectedGoal.goalTitle = "*Delete if no need: " + selectedGoal.goalTitle!
             
-            // Declare ManagedObjectContext
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            // Delete a row from tableview
-            let goalToDelete = self.fetchedResultsController?.object(at: indexPath)
-            // Delete it from Core Data
-            context.delete(goalToDelete as! NSManagedObject)
-            
-        //} else { print("Couldn't grab goalCell.")}
+        } else { print("Couldn't grab goalCell.")}
+        
+        
+//        // Declare ManagedObjectContext
+//        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+//        // Delete a row from tableview
+//        let goalToDelete = self.fetchedResultsController?.object(at: indexPath)
+//        // Delete it from Core Data
+//        context.delete(goalToDelete as! NSManagedObject)
+        
         
     }
     
@@ -150,6 +153,7 @@ class MigrateTableViewController: UITableViewController, NSFetchedResultsControl
     func migrateTasksOfOneGoal(selectedGoal: Goal, newGoal: Goal) {
 
         let taskArray = selectedGoalTasksToArray(selectedGoal: selectedGoal)
+        
         for taskToMigrate in taskArray {
 
             let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
